@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version          = '1.0.0-beta.1'
   s.summary          = 'ExAdsSDK iOS SDK'
   s.description      = '内部聚合广告 + 数据上报一体化 SDK，仅支持真机 (iOS-arm64)。'
-  s.homepage         = 'https://gitee.com/wonder_ios_sdk/WD_MediationSDK_Spec'
+  s.homepage         = 'https://github.com/ljwcode/ExAdsSDK_Spec'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'nba137cbav75@gmail.com.com' => 'nba137cbav75@gmail.com' }
 
