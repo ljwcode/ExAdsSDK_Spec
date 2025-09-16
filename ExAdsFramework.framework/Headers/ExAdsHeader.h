@@ -8,7 +8,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <AdjustSdk/AdjustSdk.h>
+@class ExAdsGameConfig;
 NS_ASSUME_NONNULL_BEGIN
+
+// 免广告类型
+typedef NS_ENUM(NSInteger, ExAdsRemoveType) {
+    ExAdsRemoveTypeReward   = 0,   // 激励视频
+    ExAdsRemoveTypeInsert   = 1,   // 插屏广告
+    ExAdsRemoveTypeBanner   = 2,   // Banner 广告
+    ExAdsRemoveTypeSplash   = 3,   // 开屏广告
+    ExAdsRemoveTypeAll      = 4,   // 所有广告
+    ExAdsRemoveTypeUnknown  = -1,  // 未知
+};
 
 @interface ExAdsHeader : NSObject
 
@@ -74,12 +85,17 @@ NS_ASSUME_NONNULL_BEGIN
 //adjust事件
 - (void)ExAdsAdjustEvent:(NSString *)eventString;
 
+// 主动请求 Adjust 归因信息（内部8秒超时，失败则回调 isSuccess=NO）
+- (void)ExAdsRequestAdjustInfo;
+// Adjust 归因结果回调（isSuccess, network, campaign, adGroup, creative）
+- (void)ExAdsOnAdjustCallBack:(void (^)(BOOL isSuccess, NSString *network, NSString *campaign, NSString *adGroup, NSString *creative))handler;
+
 //设置用户属性 json:json可为json字符串或者字典
 - (void)ExAdsTrackUserProperty:(id)json;
 
 /**
  自定义事件埋点
-
+ 
  @param key         事件名称
  @param jsonStr 事件属性，json字符串
  */
@@ -99,6 +115,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)ExAdsFirebaseApnsToken:(NSDate *)token;
 
+/// 应用外消息推送注册（会向用户请求通知权限，未使用则无需调用）
+/// @param application UIApplication 实例（通常在 AppDelegate 中传入）
+- (void)ExAdsInitFirebaseMessageWithApplication:(UIApplication *)application;
+
+/// 消息推送点击跳转回调设置（pushId 为消息中携带的 n_push_id 值，可能为空字符串）
+/// @param handler 回调块，参数为 pushId
+- (void)ExAdsOnFirebaseMessageClick:(void (^)(NSString *pushId))handler;
+
+// 获取远端 game 配置（返回当前缓存，可能为 nil）
+- (nullable ExAdsGameConfig *)ExAdsGetRemoteGameConfig;
+
+// 拉取远端配置，并通过回调返回是否成功以及解析后的 game 配置（可能为 nil）
+- (void)ExAdsFetchRemoteGameConfigWithCompletion:(void (^)(BOOL success, ExAdsGameConfig * _Nullable gameConfig))completion;
 //开始内购 productId：商品ID
 - (void)ExAdsLaunchInAppPurchase:(NSString *)productId;
 //恢复内购 productId：商品ID
@@ -115,6 +144,15 @@ NS_ASSUME_NONNULL_BEGIN
  * @param parentViewController 父视图控制器
  */
 + (void)showLogViewControllerFromParent:(UIViewController *)parentViewController;
+
+// ==================== 免广告接口（选接） ====================
+/// 设置指定广告类型是否免广告；当 type 为 ExAdsRemoveTypeAll 时，表示对所有广告生效
+- (void)ExAdsSetRemoveAdWithType:(ExAdsRemoveType)type enable:(BOOL)enable;
+/// 查询指定广告类型是否免广告；当已设置 All 为 YES 时，对所有类型均返回 YES
+- (BOOL)ExAdsIsRemoveAdWithType:(ExAdsRemoveType)type;
+/// 关闭免广告（清除全局和各分类型免广告状态，含旧版兼容键）
+- (void)ExAdsCloseRemoveAd;
+
 
 @end
 

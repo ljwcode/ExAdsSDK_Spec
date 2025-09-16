@@ -23,10 +23,14 @@ typedef void(^onFetchUnacknowledgedOrderCallBack)(NSString *productId,NSString *
 
 //firebase
 typedef void(^onFCMTokenCallBack) (BOOL isSuccess, NSString *token, NSString *errorMsg);
+/// Firebase 推送点击回调（pushId 为通知携带的 n_push_id 值，可能为空字符串）
+typedef void(^onFirebaseMessageClick)(NSString *pushId);
 
 //adjust
 typedef void(^onAdjustCallBack) (BOOL isSuccess);
 typedef void(^ExAdsAdjustAttributionCallback)(NSDictionary *payload);
+// 新增：带详细归因信息的回调（isSuccess, network, campaign, adGroup, creative）
+typedef void(^onAdjustCallBackWithInfo)(BOOL isSuccess, NSString *network, NSString *campaign, NSString *adGroup, NSString *creative);
 
 //banner
 typedef void(^onBannerShowFail) (NSString *msg, int actualAdType);
@@ -91,9 +95,12 @@ typedef void(^onFbCancel) (void);
 //adjust
 @property (nonatomic,copy)onAdjustCallBack __nullable onAdjustCallBack;
 @property (nonatomic, copy) ExAdsAdjustAttributionCallback attributionCallback;
+// 新增：带详细归因信息的回调属性
+@property (nonatomic, copy) onAdjustCallBackWithInfo __nullable onAdjustCallBackWithInfo;
 
 //firebase
 @property (nonatomic,copy)onFCMTokenCallBack __nullable onFCMTokenCallBack;
+@property (nonatomic,copy)onFirebaseMessageClick __nullable onFirebaseMessageClick;
 
 //inAppPurchase
 @property (nonatomic,copy)onProductListCallBack __nullable onProductListCallBack;
