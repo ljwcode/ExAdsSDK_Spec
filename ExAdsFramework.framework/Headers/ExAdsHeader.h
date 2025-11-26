@@ -110,6 +110,13 @@ typedef NS_ENUM(NSInteger, ExAdsRemoveType) {
 - (void)ExAdsThinkingTrackLevelRetry:(NSInteger)level;
 - (void)ExAdsThinkingTrackLevelProp:(NSInteger)level;
 
+ /// 开始计时，用于数数预置属性 `#duration`；不触发上报，
+ /// 后续对同名事件调用 `ExAdsThinkingTrackEventWithKey` 时由 SDK 自动附加时长（秒）
+ - (void)ExAdsThinkingTimeEventWithKey:(NSString *)key;
+ /// 获取当前事件自 `timeEvent` 起的已计时时长（秒）；
+ /// 未开始或已在上报后被清理则返回 0
+ - (NSTimeInterval)ExAdsThinkingGetDurationWithKey:(NSString *)key;
+
 //firebase获取推送token
 - (void)ExAdsRequestFCMToken;
 
