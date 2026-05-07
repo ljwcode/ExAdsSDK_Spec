@@ -95,11 +95,11 @@ typedef NS_ENUM(NSInteger, ExAdsRemoveType) {
                                         NSString *campaign, NSString *adGroup,
                                         NSString *creative))handler;
 
-// 设置用户属性 json:json可为json字符串或者字典
+// 设置分析用户属性，`json` 可为 JSON 字符串或者字典
 - (void)ExAdsTrackUserProperty:(id)json;
 
 /**
- 自定义事件埋点
+ 分析 SDK 自定义事件埋点（当前由 Solar Engine 承载，对外保留原接口名）
 
  @param key         事件名称
  @param jsonStr 事件属性，json字符串
@@ -107,7 +107,7 @@ typedef NS_ENUM(NSInteger, ExAdsRemoveType) {
 - (void)ExAdsThinkingTrackEventWithKey:(NSString *)key
                                jsonStr:(NSString *)jsonStr;
 - (void)ExAdsThinkingSetSuperPropertiesJsonStr:(NSString *)jsonStr;
-// th游戏通用关卡埋点
+// 通用关卡埋点（对外保留原接口名）
 - (void)ExAdsThinkingTrackLevelEnter:(NSInteger)level;
 - (void)ExAdsThinkingTrackLevelStart:(NSInteger)level;
 - (void)ExAdsThinkingTrackLevelWin:(NSInteger)level;
@@ -116,11 +116,10 @@ typedef NS_ENUM(NSInteger, ExAdsRemoveType) {
 - (void)ExAdsThinkingTrackLevelRetry:(NSInteger)level;
 - (void)ExAdsThinkingTrackLevelProp:(NSInteger)level;
 
-/// 开始计时，用于数数预置属性 `#duration`；不触发上报，
-/// 后续对同名事件调用 `ExAdsThinkingTrackEventWithKey` 时由 SDK
-/// 自动附加时长（秒）
+/// 开始事件计时；不触发上报，后续对同名事件调用
+/// `ExAdsThinkingTrackEventWithKey` 时由 SDK 自动附加时长（秒）
 - (void)ExAdsThinkingTimeEventWithKey:(NSString *)key;
-/// 获取当前事件自 `timeEvent` 起的已计时时长（秒）；
+/// 获取当前事件自计时开始起的已计时时长（秒）；
 /// 未开始或已在上报后被清理则返回 0
 - (NSTimeInterval)ExAdsThinkingGetDurationWithKey:(NSString *)key;
 /// 结束时间事件并返回 duration（秒），同时清理内部状态；
