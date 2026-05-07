@@ -75,5 +75,5 @@ s.dependency 'GoogleAdsOnDeviceConversion'
 s.dependency 'Adjust/AdjustGoogleOdm'
 s.dependency 'Adjust', '~> 5.5.0'
 
-s.dependency 'ThinkingSDK', '~> 3.1.1'
+s.dependency 'SolarEngineSDKiOSInter', '~> 1.3.1.2'
 end

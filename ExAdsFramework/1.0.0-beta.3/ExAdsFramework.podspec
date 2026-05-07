@@ -74,5 +74,5 @@ s.dependency 'GoogleUserMessagingPlatform', '~> 3.0.0'
 
 s.dependency 'Adjust', '~> 5.4.4'
 
-s.dependency 'ThinkingSDK', '~> 3.1.1'
+s.dependency 'SolarEngineSDKiOSInter', '~> 1.3.1.2'
 end
