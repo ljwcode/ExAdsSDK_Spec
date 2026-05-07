@@ -41,7 +41,7 @@ s.user_target_xcconfig = {
 
   # ========== 三方依赖（保持原版，删掉重复） ==========
 
-ss.dependency 'IronSourceSDK', '8.10.0.0'
+s.dependency 'IronSourceSDK', '8.10.0.0'
 s.dependency 'IronSourceAdQualitySDK', '7.25.2'
 
 s.dependency 'IronSourceAppLovinAdapter', '4.3.52.0'
