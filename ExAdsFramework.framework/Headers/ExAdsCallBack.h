@@ -54,6 +54,11 @@ typedef void(^onSplashShowFail) (NSString *msg, int actualAdType);
 typedef void(^onSplashFinish) (int actualAdType);
 typedef void(^onSplashShow) (int actualAdType);
 
+//Native
+typedef void(^onNativeShowFail) (NSString *msg, int actualAdType);
+typedef void(^onNativeClosed) (int actualAdType);
+typedef void(^onNativeShow) (int actualAdType);
+
 //facebook callback
 typedef void(^onFbSuccess) (NSString *userId);
 typedef void(^onFbHeadImage) (UIImage *image);
@@ -86,6 +91,11 @@ typedef void(^onFbCancel) (void);
 @property (nonatomic,copy)onSplashShowFail __nullable onSplashShowFail;
 @property (nonatomic,copy)onSplashFinish __nullable onSplashFinish;
 @property (nonatomic,copy)onSplashShow __nullable onSplashShow;
+
+//Native
+@property (nonatomic,copy)onNativeShowFail __nullable onNativeShowFail;
+@property (nonatomic,copy)onNativeClosed __nullable onNativeClosed;
+@property (nonatomic,copy)onNativeShow __nullable onNativeShow;
 
 //banner
 @property (nonatomic,copy)onBannerShowFail __nullable onBannerShowFail;

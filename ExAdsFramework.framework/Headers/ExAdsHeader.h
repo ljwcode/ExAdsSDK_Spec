@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @class ExAdsGameConfig;
+
+// 广告聚合类型枚举
+typedef NS_ENUM(NSInteger, ExAdsAggregationType) {
+  ExAdsAggregationTypeIronSource = 0,  // Ir/onSource 聚合
+  ExAdsAggregationTypeMAX        = 1,  // AppLovin MAX 聚合
+};
 NS_ASSUME_NONNULL_BEGIN
 
 // 免广告类型
@@ -18,6 +24,7 @@ typedef NS_ENUM(NSInteger, ExAdsRemoveType) {
   ExAdsRemoveTypeBanner = 2,   // Banner 广告
   ExAdsRemoveTypeSplash = 3,   // 开屏广告
   ExAdsRemoveTypeAll = 4,      // 所有广告
+  ExAdsRemoveTypeNative = 5,   // 原生广告
   ExAdsRemoveTypeUnknown = -1, // 未知
 };
 
@@ -172,6 +179,20 @@ typedef NS_ENUM(NSInteger, ExAdsRemoveType) {
 - (BOOL)ExAdsIsRemoveAdWithType:(ExAdsRemoveType)type;
 /// 关闭免广告（清除全局和各分类型免广告状态，含旧版兼容键）
 - (void)ExAdsCloseRemoveAd;
+
+// ==================== 聚合类型查询 ====================
+/// 获取当前生效的广告聚合类型
+- (ExAdsAggregationType)ExAdsGetAggregationType;
+/// 获取当前聚合类型字符串（"ironsource" | "max"）
+- (NSString *)ExAdsGetAggregationTypeString;
+
+// ==================== 原生广告（MAX 聚合新增） ====================
+/// 展示原生广告到指定父视图（仅 MAX 聚合支持）
+/// @param parentView 父视图
+/// @param topOffset 顶部偏移（pt）
+- (void)ExAdsShowNativeAdIn:(UIView *)parentView topOffset:(CGFloat)topOffset;
+/// 移除原生广告
+- (void)ExAdsCloseNativeAd;
 
 @end
 
